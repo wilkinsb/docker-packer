@@ -1,0 +1,40 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "GITHUB_SSH_KEY": "{{env `GITHUB_SSH_KEY`}}",
+    "ECR_URI": "{{ env `ECR_URI`}}",
+    "ECR_LOGIN_SERVER": "{{env `ECR_LOGIN_SERVER`}}"
+  },
+  "builders": [{
+    "name": "docker-jockey",
+    "type": "docker",
+    "commit": true,
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "environment_vars": [
+      "AWS_DEFAULT_REGION=us-west-2",
+      "GITHUB_SSH_KEY={{user `GITHUB_SSH_KEY`}}"
+    ],
+    "script": "provision-docker.sh"
+    }],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `ECR_URI`}}",
+        "tag": "testing-image-tags"
+      },
+      {
+        "type": "docker-push",
+        "ecr_login": true,
+        "aws_access_key": "{{user `aws_access_key`}}",
+        "aws_secret_key": "{{user `aws_secret_key`}}",
+        "login_server": "{{user `ECR_LOGIN_SERVER`}}"
+      }
+    ]
+  ]
+}
