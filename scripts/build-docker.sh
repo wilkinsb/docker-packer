@@ -13,7 +13,7 @@ unzip packer_1.0.3_linux_amd64.zip
 cp packer /usr/local/bin
 
 cd /docker-packer
-/usr/local/bin/packer build -machine-readable -only=master packer-template.json 2>&1 | tee build.out
+/usr/local/bin/packer build -machine-readable packer-template.json 2>&1 | tee build.out
 
 curl https://bootstrap.pypa.io/get-pip.py | python
 
