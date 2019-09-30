@@ -23,6 +23,13 @@ echo $ECR_LOGIN_SERVER
 apt-get update
 apt-get install -y git
 
+sudo apt install docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+
+echo $docker --version
+
+
 cd /
 echo $GITHUB_SSH_KEY | sed 's/NEWLINE/\\n/g' > /.github_ssh_key
 chmod 0400 .github_ssh_key
