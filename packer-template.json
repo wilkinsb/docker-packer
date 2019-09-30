@@ -8,6 +8,7 @@
   "builders": [{
     "name": "docker-jockey",
     "type": "docker",
+    "image": "ubuntu",
     "commit": true
   }],
   "provisioners": [{
