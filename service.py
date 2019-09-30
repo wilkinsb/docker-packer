@@ -30,7 +30,7 @@ cd docker-packer/scripts
 
 ./build-docker.sh
 
-    """.format(conf.GITHUB_SSH_KEY)
+    """.format(os.getenv(GITHUB_SSH_KEY))
 
     return output
 
@@ -64,15 +64,15 @@ def trigger_build(event, context):
     """
     Both web and S3 events will eventually call this.
     """
-    ec2_client = boto3.client("ec2", region_name=conf.AWS_REGION)
+    ec2_client = boto3.client("ec2", region_name=os.getenv("AWS_REGION"))
 
-    arn = conf.EC2_ARN
+    arn = os.getenv("EC2_ARN")
     response = ec2_client.run_instances(
         ImageId=find_image(),
         MinCount=1,
         MaxCount=1,
-        KeyName=conf.SSH_KEYNAME,
-        SecurityGroupIds=[conf.SEC_GROUP_ID],
+        KeyName=os.getenv("SSH_KEYNAME"),
+        SecurityGroupIds=[os.getenv(SEC_GROUP_ID)],
         InstanceType="t2.micro",
         IamInstanceProfile={"Arn": arn},
         InstanceInitiatedShutdownBehavior="terminate",
