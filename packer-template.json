@@ -19,7 +19,7 @@
       "AWS_DEFAULT_REGION=us-west-2",
       "GITHUB_SSH_KEY={{user `GITHUB_SSH_KEY`}}"
     ],
-    "script": "provision-docker.sh"
+    "script": "scripts/provision-docker.sh"
     }],
   "post-processors": [
     [
