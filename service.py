@@ -18,6 +18,8 @@ echo "sudo halt" | at now + 230 minutes
 export GITHUB_SSH_KEY="{}"
 export ECR_LOGIN_SERVER="{}"
 
+echo $ECR_LOGIN_SERVER
+
 apt-get update
 apt-get install -y git
 
