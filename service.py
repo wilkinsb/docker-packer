@@ -30,7 +30,7 @@ cd docker-packer/scripts
 
 ./build-docker.sh
 
-    """.format(os.getenv(GITHUB_SSH_KEY))
+    """.format(os.getenv("GITHUB_SSH_KEY"))
 
     return output
 
@@ -41,7 +41,7 @@ def find_image():
     based on
     https://gist.github.com/robert-mcdermott/a9901aaafe208a6eb76e0fc3b9fc47c9
     """
-    ec2 = boto3.resource('ec2', region_name="us-west-2")
+    ec2 = boto3.resource('ec2', region_name=os.getenv("AWS_REGION"))
     images = ec2.images.filter(
         Owners=['099720109477'],
         Filters=[
@@ -72,7 +72,7 @@ def trigger_build(event, context):
         MinCount=1,
         MaxCount=1,
         KeyName=os.getenv("SSH_KEYNAME"),
-        SecurityGroupIds=[os.getenv(SEC_GROUP_ID)],
+        SecurityGroupIds=[os.getenv("SEC_GROUP_ID")],
         InstanceType="t2.micro",
         IamInstanceProfile={"Arn": arn},
         InstanceInitiatedShutdownBehavior="terminate",
