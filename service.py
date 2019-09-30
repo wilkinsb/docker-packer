@@ -26,9 +26,10 @@ chmod 0400 .github_ssh_key
 export GIT_SSH_COMMAND="ssh -i /.github_ssh_key -o StrictHostKeyChecking=no"
 
 git clone https://github.com/wilkinsb/docker-packer.git
+cd docker-packer
 git checkout staging
 
-cd docker-packer/scripts
+cd scripts
 
 ./build-docker.sh
 
