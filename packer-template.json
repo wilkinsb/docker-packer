@@ -2,7 +2,6 @@
   "variables": {
     "aws_access_key": "",
     "aws_secret_key": "",
-    "GITHUB_SSH_KEY": "{{env `GITHUB_SSH_KEY`}}",
     "ECR_URI": "{{ env `ECR_URI`}}",
     "ECR_LOGIN_SERVER": "{{env `ECR_LOGIN_SERVER`}}"
   },
@@ -16,8 +15,7 @@
   "provisioners": [{
     "type": "shell",
     "environment_vars": [
-      "AWS_DEFAULT_REGION=us-west-2",
-      "GITHUB_SSH_KEY={{user `GITHUB_SSH_KEY`}}"
+      "AWS_DEFAULT_REGION=us-west-2"
     ],
     "script": "scripts/provision-docker.sh"
     }],
