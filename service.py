@@ -42,30 +42,30 @@ cd scripts
     return output
 
 
-# def find_image():
-#     """
-#     Finds the latest Canonical Ubuntu 16.04 AMI and return the ID.
-#     based on
-#     https://gist.github.com/robert-mcdermott/a9901aaafe208a6eb76e0fc3b9fc47c9
-#     """
-#     ec2 = boto3.resource('ec2', region_name=os.getenv("AWS_REGION"))
-#     images = ec2.images.filter(
-#         Owners=['099720109477'],
-#         Filters=[
-#             {'Name': 'name', 'Values': [
-#                 'ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*']},
-#             {'Name': 'state', 'Values': ['available']},
-#             {'Name': 'architecture', 'Values': ['x86_64']},
-#             {'Name': 'root-device-type', 'Values': ['ebs']},
-#             {'Name': 'virtualization-type', 'Values': ['hvm']}
-#         ]
-#     )
-#     candidates = {}
-#     for image in images:
-#         candidates[image.creation_date] = image.image_id
-#     cdate = sorted(candidates.keys(), reverse=True)[0]
-#     ami = candidates[cdate]
-#     return ami
+def find_image():
+    """
+    Finds the latest Canonical Ubuntu 16.04 AMI and return the ID.
+    based on
+    https://gist.github.com/robert-mcdermott/a9901aaafe208a6eb76e0fc3b9fc47c9
+    """
+    ec2 = boto3.resource('ec2', region_name=os.getenv("AWS_REGION"))
+    images = ec2.images.filter(
+        Owners=['099720109477'],
+        Filters=[
+            {'Name': 'name', 'Values': [
+                'ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*']},
+            {'Name': 'state', 'Values': ['available']},
+            {'Name': 'architecture', 'Values': ['x86_64']},
+            {'Name': 'root-device-type', 'Values': ['ebs']},
+            {'Name': 'virtualization-type', 'Values': ['hvm']}
+        ]
+    )
+    candidates = {}
+    for image in images:
+        candidates[image.creation_date] = image.image_id
+    cdate = sorted(candidates.keys(), reverse=True)[0]
+    ami = candidates[cdate]
+    return ami
 
 def trigger_build(event, context):
     """
@@ -75,8 +75,7 @@ def trigger_build(event, context):
 
     arn = os.getenv("EC2_ARN")
     response = ec2_client.run_instances(
-        # Amazon Linux 2 ECS image (recommended by AWS)
-        ImageId="ami-0ab0050d945a2d795",
+        ImageId=find_image(),
         MinCount=1,
         MaxCount=1,
         KeyName=os.getenv("SSH_KEYNAME"),
