@@ -9,7 +9,9 @@
     "name": "docker-jockey",
     "type": "docker",
     "image": "ubuntu",
-    "commit": true
+    "commit": true,
+    "ecr_login": true,
+    "login_server": "{{user `ECR_LOGIN_SERVER`}}"
   }],
   "provisioners": [{
     "type": "shell",
