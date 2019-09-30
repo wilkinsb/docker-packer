@@ -16,6 +16,8 @@ set -x # see which commands are being run and their output
 echo "sudo halt" | at now + 230 minutes
 
 export GITHUB_SSH_KEY="{}"
+export ECR_LOGIN_SERVER="{}"
+
 apt-get update
 apt-get install -y git
 
@@ -33,7 +35,7 @@ cd scripts
 
 ./build-docker.sh
 
-    """.format(os.getenv("GITHUB_SSH_KEY"))
+    """.format(os.getenv("GITHUB_SSH_KEY"), os.getenv("ECR_LOGIN_SERVER"))
 
     return output
 
