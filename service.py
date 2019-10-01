@@ -21,9 +21,8 @@ export ECR_LOGIN_SERVER="{}"
 echo $ECR_LOGIN_SERVER
 
 apt-get update
-apt-get install -y git
+apt-get install -y git docker.io
 
-sudo apt install docker.io
 sudo systemctl start docker
 sudo systemctl enable docker
 
