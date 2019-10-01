@@ -11,7 +11,11 @@
     "image": "ubuntu",
     "commit": true,
     "ecr_login": true,
-    "login_server": "{{user `ECR_LOGIN_SERVER`}}"
+    "login_server": "{{user `ECR_LOGIN_SERVER`}}",
+    "changes": [
+      "WORKDIR /gems-pipeline",
+      "ENTRYPOINT /gems-pipeline/entry.py"
+    ]
   }],
   "provisioners": [{
     "type": "shell",
