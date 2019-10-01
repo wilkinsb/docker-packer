@@ -27,15 +27,6 @@
   "post-processors": [
     [
       {
-        "type": "shell-local",
-        "environment_vars": [
-          "ECR_URI={{user `ECR_URI`}}",
-          "ECR_LOGIN_SERVER={{user `ECR_LOGIN_SERVER`}}",
-          "AWS_ACCESS_KEY={{user `aws_access_key`}}",
-          "AWS_SECRET_KEY={{user `aws_secret_key`}}"
-        ]
-      },
-      {
         "type": "docker-tag",
         "repository": "{{user `ECR_URI`}}",
         "tag": "testing-image-tags"
