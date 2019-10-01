@@ -8,8 +8,8 @@ apt-get install -y python curl unzip
 
 
 cd /tmp
-curl -O https://releases.hashicorp.com/packer/1.0.3/packer_1.0.3_linux_amd64.zip
-unzip packer_1.0.3_linux_amd64.zip
+curl -O https://releases.hashicorp.com/packer/1.4.4/packer_1.4.4_linux_amd64.zip
+unzip packer_1.4.4_linux_amd64.zip
 cp packer /usr/local/bin
 
 cd /docker-packer
