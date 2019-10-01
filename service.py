@@ -17,6 +17,11 @@ echo "sudo halt" | at now + 230 minutes
 
 export GITHUB_SSH_KEY="{}"
 export ECR_LOGIN_SERVER="{}"
+export ECR_URI="{}"
+
+# export AWS_ACCESS_KEY="{}"
+# export AWS_SECRET_KEY="{}"
+
 
 echo $ECR_LOGIN_SERVER
 
@@ -43,7 +48,13 @@ cd scripts
 
 ./build-docker.sh
 
-    """.format(os.getenv("GITHUB_SSH_KEY"), os.getenv("ECR_LOGIN_SERVER"))
+    """.format(
+        os.getenv("GITHUB_SSH_KEY"),
+        os.getenv("ECR_LOGIN_SERVER"),
+        os.getenv("ECR_URI") # ,
+        # os.getenv("AWS_ACCESS_KEY"),
+        # os.getenv("AWS_SECRET_KEY")
+        )
 
     return output
 
