@@ -12,16 +12,6 @@ apt-get update
 apt-get install -y git
 
 cd /
-echo $GITHUB_SSH_KEY | sed 's/NEWLINE/\n/g' > /home/ubuntu/.github_ssh_key
-mv /home/ubuntu/.github_ssh_key /
-chmod 0400 /.github_ssh_key
-
-export GIT_SSH_COMMAND="ssh -i /.github_ssh_key -o StrictHostKeyChecking=no"
-
-
-git clone git@github.com:bwilkins/docker-packer.git
-cd docker-packer
-git checkout staging
 
 
 set -x
