@@ -16,12 +16,25 @@
   "provisioners": [{
     "type": "shell",
     "environment_vars": [
-      "AWS_DEFAULT_REGION=us-west-2"
+      "AWS_DEFAULT_REGION=us-west-2",
+      "ECR_URI={{user `ECR_URI`}}",
+      "ECR_LOGIN_SERVER={{user `ECR_LOGIN_SERVER`}}",
+      "AWS_ACCESS_KEY={{user `aws_access_key`}}",
+      "AWS_SECRET_KEY={{user `aws_secret_key`}}"
     ],
     "script": "scripts/provision-docker.sh"
     }],
   "post-processors": [
     [
+      {
+        "type": "shell-local",
+        "environment_vars": [
+          "ECR_URI={{user `ECR_URI`}}",
+          "ECR_LOGIN_SERVER={{user `ECR_LOGIN_SERVER`}}",
+          "AWS_ACCESS_KEY={{user `aws_access_key`}}",
+          "AWS_SECRET_KEY={{user `aws_secret_key`}}"
+        ]
+      },
       {
         "type": "docker-tag",
         "repository": "{{user `ECR_URI`}}",
