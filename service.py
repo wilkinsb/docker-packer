@@ -39,11 +39,7 @@ cd scripts
 
 ./build-docker.sh
 
-    """.format(
-        os.getenv("GH_ACCESS_TOKEN"),
-        os.getenv("ECR_LOGIN_SERVER"),
-        os.getenv("ECR_URI")
-        )
+    """.format(os.getenv("GH_ACCESS_TOKEN"), os.getenv("ECR_LOGIN_SERVER"), os.getenv("ECR_URI"))
 
     return output
 
