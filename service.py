@@ -7,7 +7,7 @@ import local_settings as conf
 
 def get_user_data():
     """Get user data"""
-    output = """#!/bin/bash
+    output = f"""#!/bin/bash
 
 set -e # exit after any error
 set -x # see which commands are being run and their output
@@ -15,9 +15,9 @@ set -x # see which commands are being run and their output
 # terminate self after 230 minutes- safety precaution
 echo "sudo halt" | at now + 230 minutes
 
-export GH_ACCESS_TOKEN="{}"
-export ECR_LOGIN_SERVER="{}"
-export ECR_URI="{}"
+export GH_ACCESS_TOKEN="{os.getenv("GH_ACCESS_TOKEN")}"
+export ECR_LOGIN_SERVER="{os.getenv("ECR_LOGIN_SERVER")}"
+export ECR_URI="{os.getenv("ECR_URI")}"
 
 
 echo $ECR_LOGIN_SERVER
@@ -31,15 +31,14 @@ sudo systemctl enable docker
 echo $docker --version
 
 
-git clone https://{}:@github.com/wilkinsb/docker-packer.git
+git clone https://{os.getenv("GH_ACCESS_TOKEN")}:@github.com/wilkinsb/docker-packer.git
 cd docker-packer
 git checkout staging
 
 cd scripts
 
 ./build-docker.sh
-
-    """.format(os.getenv("GH_ACCESS_TOKEN"), os.getenv("ECR_LOGIN_SERVER"), os.getenv("ECR_URI"))
+"""
 
     return output
 
