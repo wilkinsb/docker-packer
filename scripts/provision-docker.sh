@@ -12,7 +12,7 @@ apt-get update
 apt-get install -y git
 
 cd /
-git clone https://${GH_ACCESS_TOKEN}:@github.com:sciscogenetics/gems-pipeline.git
+git clone https://${GH_ACCESS_TOKEN}:@github.com/sciscogenetics/gems-pipeline.git
 cd gems-pipeline
 git checkout staging
 
