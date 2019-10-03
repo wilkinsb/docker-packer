@@ -12,13 +12,7 @@ apt-get update
 apt-get install -y git
 
 cd /
-echo $GITHUB_SSH_KEY | sed 's/NEWLINE/\n/g' > /.github_ssh_key
-chmod 0400 /.github_ssh_key
-
-export GIT_SSH_COMMAND="ssh -i /.github_ssh_key -o StrictHostKeyChecking=no"
-
-cd /
-git clone git@github.com:sciscogenetics/gems-pipeline.git
+git clone https://${GH_ACCESS_TOKEN}:@github.com:sciscogenetics/gems-pipeline.git
 cd gems-pipeline
 git checkout staging
 

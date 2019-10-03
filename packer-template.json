@@ -4,7 +4,7 @@
     "aws_secret_key": "",
     "ECR_URI": "{{ env `ECR_URI`}}",
     "ECR_LOGIN_SERVER": "{{env `ECR_LOGIN_SERVER`}}",
-    "GITHUB_SSH_KEY": "{{env `GITHUB_SSH_KEY`}}"
+    "GH_ACCESS_TOKEN": "{{env `GH_ACCESS_TOKEN`}}"
   },
   "builders": [{
     "name": "docker-jockey",
@@ -22,7 +22,7 @@
     "type": "shell",
     "environment_vars": [
       "AWS_DEFAULT_REGION=us-west-2",
-      "GITHUB_SSH_KEY={{user `GITHUB_SSH_KEY`}}",
+      "GH_ACCESS_TOKEN={{user `GH_ACCESS_TOKEN`}}",
       "ECR_URI={{user `ECR_URI`}}",
       "ECR_LOGIN_SERVER={{user `ECR_LOGIN_SERVER`}}",
       "AWS_ACCESS_KEY={{user `aws_access_key`}}",

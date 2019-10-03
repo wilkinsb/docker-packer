@@ -15,7 +15,7 @@ set -x # see which commands are being run and their output
 # terminate self after 230 minutes- safety precaution
 echo "sudo halt" | at now + 230 minutes
 
-export GITHUB_SSH_KEY="{}"
+export GH_ACCESS_TOKEN="{}"
 export ECR_LOGIN_SERVER="{}"
 export ECR_URI="{}"
 
@@ -31,13 +31,7 @@ sudo systemctl enable docker
 echo $docker --version
 
 
-cd /
-echo $GITHUB_SSH_KEY | sed 's/NEWLINE/\\n/g' > /.github_ssh_key
-chmod 0400 .github_ssh_key
-
-export GIT_SSH_COMMAND="ssh -i /.github_ssh_key -o StrictHostKeyChecking=no"
-
-git clone https://github.com/wilkinsb/docker-packer.git
+git clone https://{}:@github.com/wilkinsb/docker-packer.git
 cd docker-packer
 git checkout staging
 
@@ -46,7 +40,7 @@ cd scripts
 ./build-docker.sh
 
     """.format(
-        os.getenv("GITHUB_SSH_KEY"),
+        os.getenv("GH_ACCESS_TOKEN"),
         os.getenv("ECR_LOGIN_SERVER"),
         os.getenv("ECR_URI")
         )
