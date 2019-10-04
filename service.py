@@ -46,17 +46,19 @@ def find_image():
     based on
     https://gist.github.com/robert-mcdermott/a9901aaafe208a6eb76e0fc3b9fc47c9
     """
-    ec2 = boto3.resource('ec2', region_name=os.getenv("AWS_REGION"))
+    ec2 = boto3.resource("ec2", region_name=os.getenv("AWS_REGION"))
     images = ec2.images.filter(
-        Owners=['099720109477'],
+        Owners=["099720109477"],
         Filters=[
-            {'Name': 'name', 'Values': [
-                'ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*']},
-            {'Name': 'state', 'Values': ['available']},
-            {'Name': 'architecture', 'Values': ['x86_64']},
-            {'Name': 'root-device-type', 'Values': ['ebs']},
-            {'Name': 'virtualization-type', 'Values': ['hvm']}
-        ]
+            {
+                "Name": "name",
+                "Values": ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"],
+            },
+            {"Name": "state", "Values": ["available"]},
+            {"Name": "architecture", "Values": ["x86_64"]},
+            {"Name": "root-device-type", "Values": ["ebs"]},
+            {"Name": "virtualization-type", "Values": ["hvm"]},
+        ],
     )
     candidates = {}
     for image in images:
@@ -64,6 +66,7 @@ def find_image():
     cdate = sorted(candidates.keys(), reverse=True)[0]
     ami = candidates[cdate]
     return ami
+
 
 def trigger_build(event, context):
     """
@@ -82,10 +85,12 @@ def trigger_build(event, context):
         IamInstanceProfile={"Arn": arn},
         InstanceInitiatedShutdownBehavior="terminate",
         TagSpecifications=[
-            {"ResourceType": "instance", "Tags": [{"Key": "Name", "Value": "DockerPacker"}]}
+            {
+                "ResourceType": "instance",
+                "Tags": [{"Key": "Name", "Value": "DockerPacker"}],
+            }
         ],
         UserData=get_user_data(),
     )
     instance_id = response["Instances"][0]["ImageId"]
     return instance_id
-
