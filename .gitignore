@@ -5,4 +5,6 @@ config.json
 .DS_Store
 .vscode/
 
-local_settings.py
+# files used in local lambda testing
+config.yaml
+event.json
