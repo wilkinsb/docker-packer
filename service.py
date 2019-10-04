@@ -1,3 +1,7 @@
+"""
+Entry point into this function; starts instances to create docker images after provisioning
+"""
+# pylint:disable=no-member
 import os
 
 import boto3
@@ -67,7 +71,7 @@ def find_image():
     ami = candidates[cdate]
     return ami
 
-
+# pylint:disable=unused-argument
 def trigger_build(event, context):
     """
     Both web and S3 events will eventually call this.
