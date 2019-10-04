@@ -1,9 +1,7 @@
-import logging
 import os
 
 import boto3
 
-import local_settings as conf
 
 def get_user_data():
     """Get user data"""
