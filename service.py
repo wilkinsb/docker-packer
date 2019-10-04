@@ -33,7 +33,6 @@ echo $docker --version
 
 git clone https://{os.getenv("GH_ACCESS_TOKEN")}:@github.com/wilkinsb/docker-packer.git
 cd docker-packer
-git checkout staging
 
 cd scripts
 
